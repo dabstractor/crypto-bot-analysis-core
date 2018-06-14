@@ -10,3 +10,4 @@
 [submodule "gekko"]
 	path = gekko
 	url = git@45.55.178.73:/opt/git/gekko.git
+	branch = develop
