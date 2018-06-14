@@ -3,29 +3,29 @@ services:
   ui:
     build: ./ui
     ports:
-    - "3001:3000"
+      - "3001:3000"
     volumes:
-    - ./ui:/ui
+      - ./ui:/ui
     links:
-    - api
+      - api
   api:
     build: ./backend
     ports:
-    - "2000:2001"
+      - "2000:2001"
     volumes:
-    - ./backend:/backend
+      - ./backend:/backend
     links:
-    - gekko
-    - mysql
+      - gekko
+      - mysql
   gekko:
     build: ./gekko
     ports:
-    - "3000:3000"
+      - "3000:3000"
     volumes:
-    - ./gekko:/gekko
+      - ./gekko:/gekko
     links:
-    - mysql
+      - mysql
   mysql:
     build: ./db
     ports:
-    - "1433:1433"
+      - "1433:1433"
