@@ -1,13 +1,16 @@
 [submodule "backend"]
-	path = backend
-	url = git@45.55.178.73:/opt/git/crypto-bot-analysis-backend.git
+    path = backend
+    url = git@45.55.178.73:/opt/git/crypto-bot-analysis-backend.git
+    branch = master
 [submodule "db"]
-	path = db
-	url = git@45.55.178.73:/opt/git/crypto-bot-analysis-db.git
+    path = db
+    url = git@45.55.178.73:/opt/git/crypto-bot-analysis-db.git
+    branch = master
 [submodule "ui"]
-	path = ui
-	url = git@45.55.178.73:/opt/git/crypto-bot-analysis-ui.git
+    path = ui
+    url = git@45.55.178.73:/opt/git/crypto-bot-analysis-ui.git
+    branch = master
 [submodule "gekko"]
-	path = gekko
-	url = git@45.55.178.73:/opt/git/gekko.git
-	branch = develop
+    path = gekko
+    url = git@45.55.178.73:/opt/git/gekko.git
+    branch = master

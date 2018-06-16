@@ -17,15 +17,41 @@ services:
     links:
       - gekko
       - mysql
-  gekko:
-    build: ./gekko
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./gekko:/gekko
-    links:
-      - mysql
+#  gekko:
+#    build: ./gekko
+#    ports:
+#      - "3000:3000"
+#    volumes:
+#      - ./gekko:/gekko
+#    links:
+#      - mysql
   mysql:
     build: ./db
     ports:
+      - "3306:3306"
       - "1433:1433"
+  gekko:
+    restart: always
+    build: ./gekko
+    volumes:
+      - ./gekko/volumes/gekko/history:/usr/src/app/history
+      - ./gekko/config.js:/usr/src/app/config.js
+    links:
+      - redis
+      - mysql
+    environment:
+     - HOST
+     - PORT
+     - MYSQL
+    ports:
+     - "3000:3000"
+## optionally set nginx vars if you wish to frontend it with nginx
+#    environment:
+#     - VIRTUAL_HOST=gekko
+#     - PORT=3000
+#     - DOMAIN=gekko
+
+  redis:
+    image: redis:latest
+    volumes:
+      - ./volumes/redis:/data
