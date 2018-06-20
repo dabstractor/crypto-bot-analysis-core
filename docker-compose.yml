@@ -17,19 +17,22 @@ services:
     links:
       - gekko
       - mysql
-#  gekko:
-#    build: ./gekko
-#    ports:
-#      - "3000:3000"
-#    volumes:
-#      - ./gekko:/gekko
-#    links:
-#      - mysql
   mysql:
-    build: ./db
+    restart: always
+    build: ./db/mysql
+    environment:
+      MYSQL_USER: crypto
+      MYSQL_PASSWORD: 123
+      MYSQL_ROOT_PASSWORD: 123
     ports:
       - "3306:3306"
-      - "1433:1433"
+#    volumes:
+#      - ./db/mysql/schema/config.sql:/docker-entrypoint-initdb.d/002-config.sql:rw
+  mongo:
+    restart: always
+    build: ./db/mongo
+    ports:
+      - "27017:27017"
   gekko:
     restart: always
     build: ./gekko
@@ -40,9 +43,9 @@ services:
       - redis
       - mysql
     environment:
-     - HOST
-     - PORT
-     - MYSQL
+      HOST: crypto
+      PORT: 3000
+      MYSQL: crypto_db
     ports:
      - "3000:3000"
 ## optionally set nginx vars if you wish to frontend it with nginx
