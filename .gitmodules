@@ -14,3 +14,7 @@
 	path = gekko
 	url = git@45.55.178.73:/opt/git/gekko.git
 	branch = master
+[submodule "test-runner"]
+	path = test-runner
+	url = git@45.55.178.73:/opt/git/crypto-bot-analysis-test-runner.git
+	branch = master

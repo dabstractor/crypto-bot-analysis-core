@@ -5,18 +5,34 @@ services:
     ports:
       - "3001:3000"
     volumes:
-      - ./ui:/ui
+      - ./ui:/usr/src/app
     links:
       - api
   api:
     build: ./backend
     ports:
-      - "2000:2001"
+      - "8000:3000"
     volumes:
-      - ./backend:/backend
+      - ./backend:/usr/src/app
     links:
-      - gekko
       - mysql
+  test-runner:
+    build: 
+      context: ./test-runner
+      args:
+        - TEST_ASSET
+        - TEST_CURRENCY
+        - TEST_EXCHANGE
+        - TEST_TIME
+    environment:
+      MYSQL_HOST: crypto_db
+      GEKKO_HOST: gekko
+      GEKKO_PORT: 3000
+    volumes:
+      - ./test-runner:/usr/src/app:rw
+    links:
+      - mysql
+      - gekko
   mysql:
     restart: always
     build: ./db/mysql
@@ -26,26 +42,32 @@ services:
       MYSQL_ROOT_PASSWORD: 123
     ports:
       - "3306:3306"
-#    volumes:
-#      - ./db/mysql/schema/config.sql:/docker-entrypoint-initdb.d/002-config.sql:rw
+    volumes:
+      - ./db/mysql/schema/config.sql:/docker-entrypoint-initdb.d/000.sql
+      - ./db/mysql/schema/createTables.sql:/docker-entrypoint-initdb.d/001.sql
+      - ./db/mysql/schema/addBaseData.sql:/docker-entrypoint-initdb.d/002.sql
+    healthcheck:
+      test: ["CMD", "mysql", "-u", "crypto", "backtests", "-e", "SELECT * FROM trade_types"]
+      interval: 5s
+      retries: 8
   mongo:
     restart: always
     build: ./db/mongo
     ports:
       - "27017:27017"
   gekko:
-    restart: always
+    # restart: always
     build: ./gekko
     volumes:
+      # - ./gekko:/usr/src/app:rw
       - ./gekko/volumes/gekko/history:/usr/src/app/history
       - ./gekko/config.js:/usr/src/app/config.js
     links:
       - redis
       - mysql
     environment:
-      HOST: crypto
+      HOST: localhost
       PORT: 3000
-      MYSQL: crypto_db
     ports:
      - "3000:3000"
 ## optionally set nginx vars if you wish to frontend it with nginx
@@ -53,8 +75,7 @@ services:
 #     - VIRTUAL_HOST=gekko
 #     - PORT=3000
 #     - DOMAIN=gekko
-
   redis:
     image: redis:latest
     volumes:
-      - ./volumes/redis:/data
+      - ./gekko/volumes/redis:/data
