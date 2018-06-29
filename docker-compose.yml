@@ -52,11 +52,11 @@ services:
       test: ["CMD", "mysql", "-u", "crypto", "backtests", "-e", "SELECT * FROM trade_types"]
       interval: 5s
       retries: 8
-  mongo:
-    restart: always
-    build: ./db/mongo
-    ports:
-      - "27017:27017"
+#  mongo:
+#    restart: always
+#    build: ./db/mongo
+#    ports:
+#      - "27017:27017"
   gekko:
     # restart: always
     build: ./gekko
