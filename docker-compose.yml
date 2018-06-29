@@ -64,6 +64,7 @@ services:
       # - ./gekko:/usr/src/app:rw
       - ./gekko/volumes/gekko/history:/usr/src/app/history
       - ./gekko/config.js:/usr/src/app/config.js
+      - ./gekko/web:/usr/src/app/web:rw
     links:
       - redis
       - mysql
