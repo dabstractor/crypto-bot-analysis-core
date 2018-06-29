@@ -46,7 +46,7 @@ The previous three projects exist to support the main backtest runner, gekkoga. 
 		`npm run configure`
 			^ answer the interactive prompt
 		`docker-compose up -d test-runner`
-	A script for running backtests exists at `./run-backtests.sh`. It will run `npm run configure` and prompt you for these values before running `docker-compose up -d test-runner`
+	A script for running backtests exists at `./run-backtests.sh`. It will run `npm run configure` after setting `GEKKO_HOST` to `crypto` and prompt you for these values before running `docker-compose up -d test-runner`
 
 
 If you'd like to run an individual backtest you don't need to start docker, just run the following:
