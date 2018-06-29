@@ -1,5 +1,5 @@
 cd test-runner
 npm i
-GEKKO_HOST=crypto npm run configure
+GEKKO_HOST=gekko npm run configure
 cd ..
 docker-compose up -d test-runner
