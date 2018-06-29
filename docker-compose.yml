@@ -25,9 +25,11 @@ services:
         - TEST_EXCHANGE
         - TEST_TIME
     environment:
-      MYSQL_HOST: crypto_db
-      GEKKO_HOST: gekko
-      GEKKO_PORT: 3000
+      - MYSQL_HOST=crypto_db
+      - MYSQL_USER=crypto
+      - MYSQL_PASSWORD=y9TxJd8LFmWFZ58p
+      - GEKKO_HOST=gekko
+      - GEKKO_PORT=3000
     volumes:
       - ./test-runner:/usr/src/app:rw
     links:
@@ -37,9 +39,9 @@ services:
     restart: always
     build: ./db/mysql
     environment:
-      MYSQL_USER: crypto
-      MYSQL_PASSWORD: 123
-      MYSQL_ROOT_PASSWORD: 123
+      - MYSQL_USER=crypto
+      - MYSQL_PASSWORD=y9TxJd8LFmWFZ58p
+      - MYSQL_ROOT_PASSWORD=123
     ports:
       - "3306:3306"
     volumes:
@@ -66,8 +68,8 @@ services:
       - redis
       - mysql
     environment:
-      HOST: localhost
-      PORT: 3000
+      - HOST=localhost
+      - PORT=3000
     ports:
      - "3000:3000"
 ## optionally set nginx vars if you wish to frontend it with nginx
