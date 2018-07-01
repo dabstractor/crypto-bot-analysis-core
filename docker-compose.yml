@@ -48,6 +48,7 @@ services:
       - ./db/mysql/schema/config.sql:/docker-entrypoint-initdb.d/000.sql
       - ./db/mysql/schema/createTables.sql:/docker-entrypoint-initdb.d/001.sql
       - ./db/mysql/schema/addBaseData.sql:/docker-entrypoint-initdb.d/002.sql
+      - ./db/mysql/data:/var/lib/mysql:rw
     healthcheck:
       test: ["CMD", "mysql", "-u", "crypto", "backtests", "-e", "SELECT * FROM trade_types"]
       interval: 5s
