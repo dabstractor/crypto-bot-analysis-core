@@ -1,4 +1,4 @@
-version: '3'
+version: '2.2'
 services:
   ui:
     build: ./ui
@@ -80,6 +80,7 @@ services:
       - PORT=3000
     ports:
      - "3000:3000"
+    cpus: 0.7
 ## optionally set nginx vars if you wish to frontend it with nginx
 #    environment:
 #     - VIRTUAL_HOST=gekko
