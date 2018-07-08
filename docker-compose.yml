@@ -1,4 +1,4 @@
-version: '3'
+version: '2.2'
 services:
   ui:
     build: ./ui
@@ -33,7 +33,7 @@ services:
     volumes:
       - ./test-runner:/usr/src/app:rw
     links:
-      - mysql
+#      - mysql #disabled because there's no need to run it locally when pointing multiple machines to a single db
       - gekko
   mysql:
     restart: always
@@ -64,18 +64,23 @@ services:
     volumes:
       # - ./gekko:/usr/src/app:rw
       # - ./gekko/volumes/gekko/history:/usr/src/app/history
-      - ./gekko/history:/usr/src/app/history
+      - ./gekko/history:/usr/src/app/history:rw
       - ./gekko/config.js:/usr/src/app/config.js
-      # - ./gekko/web:/usr/src/app/web:rw
+      - ./gekko/core:/usr/src/app/core:rw
+      - ./gekko/web/vue/src:/usr/src/app/web/vue/src:rw
+      - ./gekko/web/vue/dist:/usr/src/app/web/vue/dist:rw
+      - ./gekko/strategies:/usr/src/app/strategies:rw
+      - ./gekko/plugins:/usr/src/app/plugins:rw
+      # - ./gekko/node_modules:/usr/src/app/node_modules:rw
       # - ./gekko/core:/usr/src/app/core:rw
     links:
       - redis
-      - mysql
     environment:
       - HOST=localhost
       - PORT=3000
     ports:
      - "3000:3000"
+    cpus: 0.7
 ## optionally set nginx vars if you wish to frontend it with nginx
 #    environment:
 #     - VIRTUAL_HOST=gekko
