@@ -64,9 +64,14 @@ services:
     volumes:
       # - ./gekko:/usr/src/app:rw
       # - ./gekko/volumes/gekko/history:/usr/src/app/history
-      - ./gekko/history:/usr/src/app/history
+      - ./gekko/history:/usr/src/app/history:rw
       - ./gekko/config.js:/usr/src/app/config.js
-      # - ./gekko/web:/usr/src/app/web:rw
+      - ./gekko/core:/usr/src/app/core:rw
+      - ./gekko/web/vue/src:/usr/src/app/web/vue/src:rw
+      - ./gekko/web/vue/dist:/usr/src/app/web/vue/dist:rw
+      - ./gekko/strategies:/usr/src/app/strategies:rw
+      - ./gekko/plugins:/usr/src/app/plugins:rw
+      # - ./gekko/node_modules:/usr/src/app/node_modules:rw
       # - ./gekko/core:/usr/src/app/core:rw
     links:
       - redis
