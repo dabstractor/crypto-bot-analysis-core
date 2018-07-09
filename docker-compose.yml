@@ -80,7 +80,7 @@ services:
       - PORT=3000
     ports:
      - "3000:3000"
-    cpus: 0.7
+    cpu_percent: 70
 ## optionally set nginx vars if you wish to frontend it with nginx
 #    environment:
 #     - VIRTUAL_HOST=gekko
